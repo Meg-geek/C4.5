@@ -26,7 +26,7 @@ public class ExcelReader {
         Iterator<Row> rowIterator = sheet.iterator();
         List<Example> examples = new ArrayList<>();
         //for column names
-        if(rowIterator.hasNext()){
+        if (rowIterator.hasNext()) {
             rowIterator.next();
         }
         while (rowIterator.hasNext()) {
@@ -39,12 +39,12 @@ public class ExcelReader {
                 Cell cell = cellIterator.next();
                 cellValues.add(cell.getStringCellValue());
             }
-            if(cellValues.size() >= NEED_VALUES_AMOUNT){
+            if (cellValues.size() >= NEED_VALUES_AMOUNT) {
                 example.addAttributeValue(Attribute.OUTLOOK, cellValues.get(OUTLOOK_INDEX));
                 example.addAttributeValue(Attribute.HUMIDITY, cellValues.get(HUMIDITY_INDEX));
                 example.addAttributeValue(Attribute.TEMPERATURE, cellValues.get(TEMPERATURE_INDEX));
                 example.addAttributeValue(Attribute.WIND, cellValues.get(WIND_INDEX));
-                if(cellValues.get(PLAY_INDEX).equals("Yes")){
+                if (cellValues.get(PLAY_INDEX).equals("Yes")) {
                     example.setResultClass(PlayClass.YES);
                 } else {
                     example.setResultClass(PlayClass.NO);
