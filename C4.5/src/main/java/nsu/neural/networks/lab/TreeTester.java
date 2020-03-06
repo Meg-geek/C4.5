@@ -49,7 +49,7 @@ public class TreeTester {
                 System.out.println("Enter " + attribute + " parameter");
                 line = reader.readLine();
                 if (line.equalsIgnoreCase("no")) {
-                    break;
+                    return;
                 }
                 example.addAttributeValue(attribute, line);
             }
