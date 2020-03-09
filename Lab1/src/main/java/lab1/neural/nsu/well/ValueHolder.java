@@ -18,16 +18,16 @@ public class ValueHolder {
         this.valueType = ValueType.FLOAT;
     }
 
-    private ValueHolder(){
+    private ValueHolder() {
         value = 0f;
         valueType = ValueType.EMPTY_VALUE;
     }
 
-    public static ValueHolder getEmptyValueHolder(){
+    public static ValueHolder getEmptyValueHolder() {
         return new ValueHolder();
     }
 
-    public boolean isEmptyValueHolder(){
+    public boolean isEmptyValueHolder() {
         return this.equals(getEmptyValueHolder());
     }
 

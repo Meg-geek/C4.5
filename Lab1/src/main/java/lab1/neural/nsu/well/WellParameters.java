@@ -17,7 +17,7 @@ public class WellParameters {
 
     private ResultClass resultClass;
 
-    public void addParameter(ValueHolder parameter){
+    public void addParameter(ValueHolder parameter) {
         parameters.add(parameter);
     }
 }

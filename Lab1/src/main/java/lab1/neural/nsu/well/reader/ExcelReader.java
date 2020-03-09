@@ -62,7 +62,7 @@ public class ExcelReader {
 
     private ResultClass getResultClass(Iterator<Cell> cellIterator) {
         List<ValueHolder> resultHolders = new ArrayList<>();
-        while(cellIterator.hasNext()){
+        while (cellIterator.hasNext()) {
             resultHolders.add(getValueHolderFromCell(cellIterator.next()));
         }
         return ResultClass.getResultClassFromHolders(resultHolders);

@@ -17,29 +17,29 @@ public class ResultClass {
     private static final float FORMAT_COEF = 1000f;
 
     private static float setKgfInOtherFormat(float kgfInOtherFormat) {
-        return  kgfInOtherFormat / FORMAT_COEF;
+        return kgfInOtherFormat / FORMAT_COEF;
     }
 
-    private ResultClass(){
+    private ResultClass() {
         gTotalHolder = ValueHolder.getEmptyValueHolder();
         kgfHolder = ValueHolder.getEmptyValueHolder();
     }
 
-    public static ResultClass getEmptyResultClass(){
+    public static ResultClass getEmptyResultClass() {
         return new ResultClass();
     }
 
-    public static ResultClass getResultClassFromHolders(List<ValueHolder> resultHolders){
-        if(resultHolders == null || resultHolders.isEmpty()){
+    public static ResultClass getResultClassFromHolders(List<ValueHolder> resultHolders) {
+        if (resultHolders == null || resultHolders.isEmpty()) {
             return getEmptyResultClass();
         }
-        if(resultHolders.size() == 1){
+        if (resultHolders.size() == 1) {
             return new ResultClass(resultHolders.get(0), ValueHolder.getEmptyValueHolder());
         }
-        if(resultHolders.size() == 2){
+        if (resultHolders.size() == 2) {
             return new ResultClass(resultHolders.get(0), resultHolders.get(1));
         }
-        if(resultHolders.get(1).isEmptyValueHolder() && !resultHolders.get(2).isEmptyValueHolder()){
+        if (resultHolders.get(1).isEmptyValueHolder() && !resultHolders.get(2).isEmptyValueHolder()) {
             float otherFormatValue = resultHolders.get(2).getValue();
             return new ResultClass(resultHolders.get(0),
                     new ValueHolder(setKgfInOtherFormat(otherFormatValue), ValueType.FLOAT));
