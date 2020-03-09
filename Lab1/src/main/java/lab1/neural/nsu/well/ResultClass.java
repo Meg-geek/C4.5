@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 
 @Setter
@@ -13,10 +14,37 @@ import java.util.Objects;
 public class ResultClass {
     //kgf in г/м^3
     private ValueHolder gTotalHolder, kgfHolder;
-    private final float FORMAT_COEF = 1000f;
+    private static final float FORMAT_COEF = 1000f;
 
-    void setKgfInOtherFormat(float kgfInOtherFormat) {
-        this.kgfHolder.setValue(kgfInOtherFormat / FORMAT_COEF);
+    private static float setKgfInOtherFormat(float kgfInOtherFormat) {
+        return  kgfInOtherFormat / FORMAT_COEF;
+    }
+
+    private ResultClass(){
+        gTotalHolder = ValueHolder.getEmptyValueHolder();
+        kgfHolder = ValueHolder.getEmptyValueHolder();
+    }
+
+    public static ResultClass getEmptyResultClass(){
+        return new ResultClass();
+    }
+
+    public static ResultClass getResultClassFromHolders(List<ValueHolder> resultHolders){
+        if(resultHolders == null || resultHolders.isEmpty()){
+            return getEmptyResultClass();
+        }
+        if(resultHolders.size() == 1){
+            return new ResultClass(resultHolders.get(0), ValueHolder.getEmptyValueHolder());
+        }
+        if(resultHolders.size() == 2){
+            return new ResultClass(resultHolders.get(0), resultHolders.get(1));
+        }
+        if(resultHolders.get(1).isEmptyValueHolder() && !resultHolders.get(2).isEmptyValueHolder()){
+            float otherFormatValue = resultHolders.get(2).getValue();
+            return new ResultClass(resultHolders.get(0),
+                    new ValueHolder(setKgfInOtherFormat(otherFormatValue), ValueType.FLOAT));
+        }
+        return new ResultClass(resultHolders.get(0), resultHolders.get(1));
     }
 
     @Override

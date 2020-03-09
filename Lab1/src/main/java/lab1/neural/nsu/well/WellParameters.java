@@ -3,21 +3,21 @@ package lab1.neural.nsu.well;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 public class WellParameters {
     private int number;
-    private String date;
+    private Date date;
 
-    private ValueHolder manometerDepth;
-    private ValueHolder dAmount;
+    private List<ValueHolder> parameters = new ArrayList<>();
 
-    private PressureHolder averageParams, endParams;
-    private TemperatureHolder temperatures;
+    private ResultClass resultClass;
 
-    private StandardFlowRateHolder standardFlowRate;
-    private LinearFlowRateHolder linFlowRate;
-
-    private float hEffective;
-    private RplHolder rplHolder;
+    public void addParameter(ValueHolder parameter){
+        parameters.add(parameter);
+    }
 }

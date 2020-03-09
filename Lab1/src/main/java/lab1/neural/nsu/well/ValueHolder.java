@@ -18,6 +18,19 @@ public class ValueHolder {
         this.valueType = ValueType.FLOAT;
     }
 
+    private ValueHolder(){
+        value = 0f;
+        valueType = ValueType.EMPTY_VALUE;
+    }
+
+    public static ValueHolder getEmptyValueHolder(){
+        return new ValueHolder();
+    }
+
+    public boolean isEmptyValueHolder(){
+        return this.equals(getEmptyValueHolder());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
