@@ -12,6 +12,7 @@ import java.util.List;
 public class WellParameters {
     private int number;
     private Date date;
+    public static final int PARAMETERS_AMOUNT = 29;
 
     private List<ValueHolder> parameters = new ArrayList<>();
 

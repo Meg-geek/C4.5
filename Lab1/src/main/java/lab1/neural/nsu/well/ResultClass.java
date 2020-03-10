@@ -29,6 +29,10 @@ public class ResultClass {
         return new ResultClass();
     }
 
+    public boolean isEmpty(){
+        return this.equals(getEmptyResultClass());
+    }
+
     public static ResultClass getResultClassFromHolders(List<ValueHolder> resultHolders) {
         if (resultHolders == null || resultHolders.isEmpty()) {
             return getEmptyResultClass();
