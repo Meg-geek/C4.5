@@ -22,6 +22,8 @@ public class ExcelReader {
     private final int HEADER_LINES_AMOUNT = 3;
     private final int VU_SHEET_INDEX = 1;
     private final int FIRST_RESULT_CLASS_INDEX = 29;
+    private final int RESULT_CLASS_PARAMETERS_AMOUNT = 3;
+    private final String LAST_PARAMETER_NAME = "дд.мм.гггг";
 
     public List<WellParameters> getParametersFromFile(String filePath) throws IOException {
         FileInputStream fileInputStream = new FileInputStream(new File(filePath));
@@ -33,7 +35,45 @@ public class ExcelReader {
         while (rowIterator.hasNext()) {
             parameters.add(getWellParameters(rowIterator.next().cellIterator()));
         }
+        removeEmptyParameter(parameters);
         return parameters;
+    }
+
+    private void removeEmptyParameter(List<WellParameters> parameters) {
+        parameters.remove(parameters.size() - 1);
+    }
+
+    public List<String> getParametersNamesFromFile(String filePath) throws IOException {
+        FileInputStream fileInputStream = new FileInputStream(new File(filePath));
+        XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+        XSSFSheet sheet = workbook.getSheetAt(VU_SHEET_INDEX);
+        Iterator<Row> rowIterator = sheet.iterator();
+        List<String> parametersNames = new ArrayList<>();
+        skipEmptyLine(rowIterator);
+        Iterator<Cell> cellIterator = rowIterator.next().cellIterator();
+        skipEmptyColumns(cellIterator);
+        while (cellIterator.hasNext()) {
+            Cell cell = cellIterator.next();
+            parametersNames.add(cell.getStringCellValue());
+        }
+        replaceResultClassParameterName(parametersNames);
+        return parametersNames;
+    }
+
+    private void replaceResultClassParameterName(List<String> parametersNames) {
+        for (int i = 0; i < RESULT_CLASS_PARAMETERS_AMOUNT; i++) {
+            parametersNames.remove(parametersNames.size() - 1);
+        }
+        parametersNames.add(LAST_PARAMETER_NAME);
+    }
+
+    private void skipEmptyColumns(Iterator<Cell> cellIterator) {
+        cellIterator.next();
+        cellIterator.next();
+    }
+
+    private void skipEmptyLine(Iterator<Row> rowIterator) {
+        rowIterator.next();
     }
 
     private void skipHeaders(Iterator<Row> rowIterator) {
