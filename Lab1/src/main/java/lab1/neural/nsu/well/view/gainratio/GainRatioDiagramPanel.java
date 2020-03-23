@@ -1,4 +1,4 @@
-package lab1.neural.nsu.well.view;
+package lab1.neural.nsu.well.view.gainratio;
 
 import lab1.neural.nsu.well.GainParameter;
 
@@ -15,8 +15,8 @@ public class GainRatioDiagramPanel extends JPanel {
     private final int AXIS_Y;
     private final int INDENT;
     private final int TEXT_INDENT;
-    private List<GainParameter> parameterGain;
     private final int LINE_COEF = 2;
+    private List<GainParameter> parameterGain;
 
 
     public GainRatioDiagramPanel(List<GainParameter> parameterGain, int frameHeight, int frameWidth) {

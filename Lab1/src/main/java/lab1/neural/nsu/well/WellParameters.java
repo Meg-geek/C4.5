@@ -10,10 +10,9 @@ import java.util.List;
 @Getter
 @Setter
 public class WellParameters {
+    public static final int PARAMETERS_AMOUNT = 29;
     private int number;
     private Date date;
-    public static final int PARAMETERS_AMOUNT = 29;
-
     private List<ValueHolder> parameters = new ArrayList<>();
 
     private ResultClass resultClass;

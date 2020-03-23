@@ -13,11 +13,6 @@ public class ValueHolder {
     private float value;
     private ValueType valueType;
 
-    public void setValue(float value) {
-        this.value = value;
-        this.valueType = ValueType.FLOAT;
-    }
-
     private ValueHolder() {
         value = 0f;
         valueType = ValueType.EMPTY_VALUE;
@@ -25,6 +20,11 @@ public class ValueHolder {
 
     public static ValueHolder getEmptyValueHolder() {
         return new ValueHolder();
+    }
+
+    public void setValue(float value) {
+        this.value = value;
+        this.valueType = ValueType.FLOAT;
     }
 
     public boolean isEmptyValueHolder() {

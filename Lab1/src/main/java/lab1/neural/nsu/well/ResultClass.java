@@ -12,25 +12,21 @@ import java.util.Objects;
 @Getter
 @AllArgsConstructor
 public class ResultClass {
+    private static final float FORMAT_COEF = 1000f;
     //kgf in г/м^3
     private ValueHolder gTotalHolder, kgfHolder;
-    private static final float FORMAT_COEF = 1000f;
-
-    private static float setKgfInOtherFormat(float kgfInOtherFormat) {
-        return kgfInOtherFormat / FORMAT_COEF;
-    }
 
     private ResultClass() {
         gTotalHolder = ValueHolder.getEmptyValueHolder();
         kgfHolder = ValueHolder.getEmptyValueHolder();
     }
 
-    public static ResultClass getEmptyResultClass() {
-        return new ResultClass();
+    private static float setKgfInOtherFormat(float kgfInOtherFormat) {
+        return kgfInOtherFormat / FORMAT_COEF;
     }
 
-    public boolean isEmpty(){
-        return this.equals(getEmptyResultClass());
+    public static ResultClass getEmptyResultClass() {
+        return new ResultClass();
     }
 
     public static ResultClass getResultClassFromHolders(List<ValueHolder> resultHolders) {
@@ -49,6 +45,10 @@ public class ResultClass {
                     new ValueHolder(setKgfInOtherFormat(otherFormatValue), ValueType.FLOAT));
         }
         return new ResultClass(resultHolders.get(0), resultHolders.get(1));
+    }
+
+    public boolean isEmpty() {
+        return this.equals(getEmptyResultClass());
     }
 
     @Override
