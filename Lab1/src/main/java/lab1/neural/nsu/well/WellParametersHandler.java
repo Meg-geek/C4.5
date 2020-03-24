@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 import static java.util.Collections.emptyList;
 
 public class WellParametersHandler {
@@ -46,4 +48,31 @@ public class WellParametersHandler {
         return excelReader.getParametersNamesFromFile(fileName);
     }
 
+    public float[][] getAttributesCorrelations(List<WellParameters> examples) {
+        int parametersAmount = examples.get(0).getParameters().size();
+        float[][] correlationsArray = new float[parametersAmount][parametersAmount];
+        for (int i = 0; i < parametersAmount; i++) {
+            for (int j = 0; j < parametersAmount; j++) {
+                int notEmptyValuesAmount = parametersAmount;
+                float sumX = 0f, sumY = 0f, sumXSq = 0f, sumXY = 0f, sumYSq = 0f;
+                for (WellParameters wellParameters : examples) {
+                    if (wellParameters.getParameters().get(i).isEmptyValueHolder() &&
+                            wellParameters.getParameters().get(j).isEmptyValueHolder()) {
+                        notEmptyValuesAmount--;
+                    }
+                    float Xi = wellParameters.getParameters().get(i).getValue();
+                    float Yi = wellParameters.getParameters().get(j).getValue();
+                    sumX += Xi;
+                    sumY += Yi;
+                    sumXSq += Xi * Xi;
+                    sumYSq += Yi * Yi;
+                    sumXY += Xi * Yi;
+                }
+                float denominator = (float) sqrt(abs(notEmptyValuesAmount * sumXSq - sumX * sumX))
+                        * (float) sqrt(abs(notEmptyValuesAmount * sumYSq - sumY * sumY));
+                correlationsArray[i][j] = (notEmptyValuesAmount * sumXY - sumX * sumY) / denominator;
+            }
+        }
+        return correlationsArray;
+    }
 }
